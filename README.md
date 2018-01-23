@@ -1,4 +1,4 @@
-GitHub repository URL: https://github.com/throwaway201704/take-home
+GitHub repository URL: https://github.com/throwaway201704/th
 
 If needed, please ask clarification questions.
 
