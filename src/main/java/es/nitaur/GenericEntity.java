@@ -3,6 +3,8 @@ package es.nitaur;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @MappedSuperclass
@@ -14,12 +16,20 @@ public class GenericEntity implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Version
+    @NotNull
+    private Integer version;
+
     public Long getId() {
         return id;
     }
 
     public void setId(final Long id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 
     @Override
