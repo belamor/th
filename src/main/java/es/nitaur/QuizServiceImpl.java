@@ -5,6 +5,8 @@ import es.nitaur.repository.QuizQuestionRepository;
 import es.nitaur.repository.QuizRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.NoResultException;
@@ -12,6 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+@Service
 public class QuizServiceImpl implements QuizService {
 
     private static final Logger logger = LoggerFactory.getLogger(QuizServiceImpl.class);
@@ -103,6 +106,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
+    @Transactional
     public List<QuizQuestion> updateQuestions(List<QuizQuestion> quizQuestions) {
         List<QuizQuestion> updatedQuestions = Lists.newArrayList();
         for (QuizQuestion quizQuestion : quizQuestions) {

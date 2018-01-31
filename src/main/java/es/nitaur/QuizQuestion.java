@@ -5,6 +5,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class QuizQuestion extends GenericEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     private String question;
 
     @Column(name = "update_count")
