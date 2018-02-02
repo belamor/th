@@ -1,4 +1,4 @@
-package es.nitaur;
+package es.nitaur.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class QuizQuestion extends GenericEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "question_fk")
     @Fetch(FetchMode.SUBSELECT)
-    private List<QuizAnswer> answers;
+    private List<QuizAnswer> answers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "section_fk")
@@ -60,5 +61,9 @@ public class QuizQuestion extends GenericEntity {
 
     public void setUpdateCount(Long updateCount) {
         this.updateCount = updateCount;
+    }
+
+    public void incrementUpdateCount(){
+        this.updateCount++;
     }
 }

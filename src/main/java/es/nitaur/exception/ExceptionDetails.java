@@ -1,4 +1,4 @@
-package es.nitaur;
+package es.nitaur.exception;
 
 public class ExceptionDetails {
 

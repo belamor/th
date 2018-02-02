@@ -1,10 +1,11 @@
-package es.nitaur;
+package es.nitaur.domain;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Quiz extends GenericEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_fk")
     @Fetch(FetchMode.SUBSELECT)
-    private List<QuizSection> sections;
+    private List<QuizSection> sections = new ArrayList<>();
 
     public String getName() {
         return name;

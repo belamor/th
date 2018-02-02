@@ -1,10 +1,11 @@
-package es.nitaur;
+package es.nitaur.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class QuizSection extends GenericEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_fk")
     @Fetch(FetchMode.SUBSELECT)
-    private List<QuizQuestion> quizQuestions;
+    private List<QuizQuestion> quizQuestions = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "quiz_fk")

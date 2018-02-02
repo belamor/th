@@ -1,4 +1,4 @@
-package es.nitaur;
+package es.nitaur.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.ServletWebRequest;

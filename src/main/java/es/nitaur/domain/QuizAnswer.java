@@ -1,4 +1,4 @@
-package es.nitaur;
+package es.nitaur.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

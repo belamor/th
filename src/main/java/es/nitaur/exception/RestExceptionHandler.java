@@ -1,4 +1,4 @@
-package es.nitaur;
+package es.nitaur.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,8 @@
 package es.nitaur;
 
 import com.google.common.collect.Lists;
+import es.nitaur.domain.QuizAnswer;
+import es.nitaur.domain.QuizQuestion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,9 @@ import static org.hamcrest.core.IsNot.not;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AllQuestionsValidTest {
 
-    public static final String UPDATE_QUESTION_API = "/api/quiz/updateQuestions";
-    public static final String GET_ALL_QUESTIONS_API = "/api/quiz/allQuestions";
+    private static final String QUESTION_API = "/api/quizzes/questions";
+    private static final String ANSWER_PUT_API = "/api/quizzes/questions/1/answers";
+
 
     @LocalServerPort
     int port;
@@ -32,7 +35,7 @@ public class AllQuestionsValidTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void questionsAreNotSavedWithEmptyQuestionText() throws Exception {
+    public void questionsAreNotSavedWithEmptyQuestionText() {
         QuizQuestion quizQuestion1 = new QuizQuestion();
         quizQuestion1.setId(1L);
         quizQuestion1.setQuestion("<<redacted>>");
@@ -43,9 +46,11 @@ public class AllQuestionsValidTest {
 
         List<QuizQuestion> questionsToUpdate = Lists.newArrayList(quizQuestion1, quizQuestion2);
 
-        restTemplate.postForLocation(UPDATE_QUESTION_API, questionsToUpdate);
+        restTemplate.put(QUESTION_API, questionsToUpdate);
 
-        ResponseEntity<List<QuizQuestion>> exchange = restTemplate.exchange(GET_ALL_QUESTIONS_API + "?filterSectionId=1", HttpMethod.GET, null, new ParameterizedTypeReference<List<QuizQuestion>>() {});
+        ResponseEntity<List<QuizQuestion>> exchange = restTemplate.exchange(QUESTION_API + "?filterSectionId=1",
+                HttpMethod.GET, null, new ParameterizedTypeReference<List<QuizQuestion>>() {
+                });
         List<QuizQuestion> body = exchange.getBody();
 
         for (QuizQuestion quizQuestion : body) {
@@ -65,9 +70,10 @@ public class AllQuestionsValidTest {
 
         List<QuizQuestion> questionsToUpdate = Lists.newArrayList(quizQuestion3, quizQuestion4);
 
-        restTemplate.postForLocation(UPDATE_QUESTION_API, questionsToUpdate);
+        restTemplate.put(QUESTION_API, questionsToUpdate);
 
-        ResponseEntity<List<QuizQuestion>> exchange = restTemplate.exchange(GET_ALL_QUESTIONS_API + "?filterSectionId=2", HttpMethod.GET, null, new ParameterizedTypeReference<List<QuizQuestion>>() {});
+        ResponseEntity<List<QuizQuestion>> exchange = restTemplate.exchange(QUESTION_API + "?filterSectionId=2", HttpMethod.GET, null, new ParameterizedTypeReference<List<QuizQuestion>>() {
+        });
         List<QuizQuestion> body = exchange.getBody();
 
         for (QuizQuestion quizQuestion : body) {

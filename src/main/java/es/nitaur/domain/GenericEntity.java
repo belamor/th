@@ -1,4 +1,4 @@
-package es.nitaur;
+package es.nitaur.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

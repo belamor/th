@@ -69,7 +69,7 @@
         </addColumn>
         <addColumn tableName="QUIZ_SECTION">
             <column name="quiz_fk" type="bigint(20)">
-                <constraints references="QUIZ(id)" foreignKeyName="FK_QUIZ_SECTION_QuizId" 
+                <constraints references="QUIZ(id)" foreignKeyName="FK_QUIZ_SECTION_QuizId"
                              nullable="true"/>
             </column>
         </addColumn>

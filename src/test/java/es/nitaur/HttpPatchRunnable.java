@@ -1,20 +1,19 @@
 package es.nitaur;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.net.URI;
 
-public class HttpPostRunnable implements Runnable {
+public class HttpPatchRunnable implements Runnable {
 
-    public static final String ANSWER_QUESTION_API_FIRST_QUESTION = "/api/quiz/answerQuestion/1";
+    public static final String ANSWER_QUESTION_API_FIRST_QUESTION = "/api/quizzes/questions/1/answers";
     public static final String LOCALHOST = "localhost";
     public static final String HTTP = "http";
     public static final Integer MAX_RETRIES = 10;
@@ -22,7 +21,7 @@ public class HttpPostRunnable implements Runnable {
     private final int port;
     private final int idx;
 
-    public HttpPostRunnable(int port, int idx) {
+    public HttpPatchRunnable(int port, int idx) {
         this.port = port;
         this.idx = idx;
     }
@@ -37,13 +36,13 @@ public class HttpPostRunnable implements Runnable {
                     .setPath(ANSWER_QUESTION_API_FIRST_QUESTION)
                     .build();
 
-            HttpPost post = new HttpPost(uri);
-            post.setHeader("Content-type", "application/json");
-            post.setEntity(new StringEntity("[{\"answer\":\"Test " + idx + "\"}, {\"answer\": \"TEST " + idx + "\"}]"));
+            HttpPatch patch = new HttpPatch(uri);
+            patch.setHeader("Content-type", "application/json");
+            patch.setEntity(new StringEntity("[{\"answer\":\"Test " + idx + "\"}, {\"answer\": \"TEST " + idx + "\"}]"));
 
-            System.out.println("Executing request # " + idx + post.getRequestLine());
+            System.out.println("Executing request # " + idx + patch.getRequestLine());
 
-            executeRequest(post, 1);
+            executeRequest(patch, 1);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,17 +50,17 @@ public class HttpPostRunnable implements Runnable {
 
     }
 
-    private void executeRequest(HttpPost post, int retryIdx) throws IOException, InterruptedException {
+    private void executeRequest(HttpPatch patch, int retryIdx) throws IOException, InterruptedException {
         if (retryIdx > MAX_RETRIES) {
             return;
         }
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        CloseableHttpResponse response = httpclient.execute(post);
+        CloseableHttpResponse response = httpclient.execute(patch);
         if (HttpStatus.INTERNAL_SERVER_ERROR.value() == response.getStatusLine().getStatusCode()) {
-            System.out.println("Call failed, re-executing request # " + idx + post.getRequestLine());
+            System.out.println("Call failed, re-executing request # " + idx + patch.getRequestLine());
             Thread.sleep(100);
-            executeRequest(post, retryIdx++);
+            executeRequest(patch, ++retryIdx);
         }
     }
 
