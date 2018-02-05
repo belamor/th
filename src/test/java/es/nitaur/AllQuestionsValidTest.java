@@ -1,7 +1,6 @@
 package es.nitaur;
 
 import com.google.common.collect.Lists;
-import es.nitaur.domain.QuizAnswer;
 import es.nitaur.domain.QuizQuestion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
